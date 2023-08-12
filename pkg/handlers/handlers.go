@@ -1,4 +1,4 @@
-package main
+package handlers
 
 import (
 	"encoding/json"
@@ -6,8 +6,6 @@ import (
 	"github.com/shadeshade/bookings-api/config"
 	"net/http"
 )
-
-const portNumber = ":8080"
 
 var Repo *Repository
 
@@ -25,15 +23,19 @@ func NewHandlers(r *Repository) {
 	Repo = r
 }
 
+type Hotels []Hotel
+
 type Hotel struct {
 	Title   string `json:"title"`
 	Desc    string `json:"desc"`
 	Content string `json:"content"`
 }
 
-type Hotels []Hotel
+func (m *Repository) Home(w http.ResponseWriter, req *http.Request) {
+	fmt.Fprintf(w, "Homepage endpoint")
+}
 
-func (m *Repository) allHotels(w http.ResponseWriter, req *http.Request) {
+func (m *Repository) AllHotels(w http.ResponseWriter, req *http.Request) {
 	hotels := Hotels{
 		Hotel{
 			Title:   "Test title",
@@ -42,21 +44,4 @@ func (m *Repository) allHotels(w http.ResponseWriter, req *http.Request) {
 		},
 	}
 	json.NewEncoder(w).Encode(hotels)
-}
-
-func (m *Repository) Home(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "Homepage endpoint")
-}
-
-func main() {
-	var app config.AppConfig
-
-	repo := NewRepo(&app)
-	NewHandlers(repo)
-
-	http.HandleFunc("/", Repo.Home)
-	http.HandleFunc("/hotels", Repo.allHotels)
-
-	fmt.Println(fmt.Sprintf("Listening on port %s", portNumber))
-	_ = http.ListenAndServe(portNumber, nil)
 }
