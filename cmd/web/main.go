@@ -1,23 +1,26 @@
 package main
 
 import (
-	"fmt"
-	"github.com/shadeshade/bookings-api/config"
+	"github.com/shadeshade/bookings-api/pkg/config"
 	"github.com/shadeshade/bookings-api/pkg/handlers"
+	"log"
 	"net/http"
 )
 
 const portNumber = ":8080"
 
+var app config.AppConfig
+
 func main() {
-	var app config.AppConfig
+	app.InProduction = false
 
 	repo := handlers.NewRepo(&app)
 	handlers.NewHandlers(repo)
 
-	http.HandleFunc("/", handlers.Repo.Home)
-	http.HandleFunc("/hotels", handlers.Repo.AllHotels)
+	srv := &http.Server{
+		Addr:    portNumber,
+		Handler: routes(&app),
+	}
 
-	fmt.Println(fmt.Sprintf("Listening on port %s", portNumber))
-	_ = http.ListenAndServe(portNumber, nil)
+	log.Fatal(srv.ListenAndServe())
 }
