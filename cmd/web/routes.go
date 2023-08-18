@@ -13,9 +13,13 @@ func routes(config *config.AppConfig) http.Handler {
 
 	mux.Use(middleware.Recoverer)
 
-	mux.Get("/", handlers.Repo.Home)
-	mux.Get("/hotels", handlers.Repo.AllHotels)
-	mux.Post("/add-hotel", handlers.Repo.AddHotel)
+	mux.Get("/search-availability", handlers.Repo.Availability)
+	mux.Post("/search-availability", handlers.Repo.PostAvailability)
+
+	mux.Get("/contact", handlers.Repo.Contact)
+
+	mux.Get("/make-reservation", handlers.Repo.Reservation)
+	mux.Post("/make-reservation", handlers.Repo.PostReservation)
 
 	return mux
 }

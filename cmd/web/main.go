@@ -12,8 +12,6 @@ const portNumber = ":8080"
 var app config.AppConfig
 
 func main() {
-	app.InProduction = false
-
 	repo := handlers.NewRepo(&app)
 	handlers.NewHandlers(repo)
 

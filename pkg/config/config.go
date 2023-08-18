@@ -5,6 +5,5 @@ import (
 )
 
 type AppConfig struct {
-	InfoLog      *log.Logger
-	InProduction bool
+	InfoLog *log.Logger
 }
