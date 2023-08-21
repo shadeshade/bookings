@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"fmt"
-	"github.com/shadeshade/bookings-api/pkg/config"
+	"github.com/shadeshade/bookings-api/internal/config"
 	"net/http"
 )
 

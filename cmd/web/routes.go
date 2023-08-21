@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/shadeshade/bookings-api/pkg/config"
-	"github.com/shadeshade/bookings-api/pkg/handlers"
+	"github.com/shadeshade/bookings-api/internal/config"
+	"github.com/shadeshade/bookings-api/internal/handlers"
 	"net/http"
 )
 

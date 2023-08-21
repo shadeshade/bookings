@@ -5,5 +5,6 @@ import (
 )
 
 type AppConfig struct {
-	InfoLog *log.Logger
+	InfoLog  *log.Logger
+	ErrorLog *log.Logger
 }
